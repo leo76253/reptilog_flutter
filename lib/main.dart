@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:reptilog_flutter/reptiles.dart';
+import 'package:reptilog_flutter/pages/reptiles.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
       initialRoute: '/',
       routes: {
-        '/': (context) => const MyHomePage(title: 'Flutter Demo Home Page'),
+        '/': (context) => const MyHomePage(title: 'ReptiLog'),
         '/reptiles': (context) => const ReptilesIndexPage(),
       },
     );
@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextButton(
+            FilledButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/reptiles');
               },
