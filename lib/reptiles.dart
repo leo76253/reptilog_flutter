@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:reptilog_flutter/model/reptile.dart';
+import 'package:http/http.dart' as http;
 
 class ReptilesIndexPage extends StatefulWidget {
   const ReptilesIndexPage({Key? key}) : super(key: key);
@@ -19,19 +22,20 @@ class _ReptilesIndexPageState extends State<ReptilesIndexPage> {
   }
 
   Future<List<Reptile>> fetchReptiles() async {
-    // Simulate a network call
-    await Future.delayed(const Duration(seconds: 2));
-    return [
-      Reptile(id: 1, name: 'Crocodile', species: 'Crocodylus niloticus'),
-      Reptile(id: 2, name: 'Lizard', species: 'Lacerta agilis'),
-      Reptile(id: 3, name: 'Snake', species: 'Serpentes'),
-    ];
+    final response = await http.get(Uri.parse('http://reptilog.test/api/reptiles'));
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      return data.map((item) => Reptile.fromJson(item)).toList();
+    } else {
+      throw Exception('Failed to load reptiles');
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Title')),
+      appBar: AppBar(title: const Text('Reptiles')),
       body: FutureBuilder(
         future: reptiles,
         initialData: const [],
