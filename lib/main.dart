@@ -1,9 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:reptilog_flutter/pages/reptiles.dart';
+import 'package:go_router/go_router.dart';
+import 'package:reptilog_flutter/pages/reptiles/detials.dart';
+import 'package:reptilog_flutter/pages/reptiles/index.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+final GoRouter _router = GoRouter(
+  routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const MyHomePage(title: 'ReptiLog'),
+    ),
+    GoRoute(path: '/reptiles', builder: (context, state) => const ReptilesIndexPage()),
+    GoRoute(
+      path: '/reptiles/details/:id',
+      builder: (context, state) {
+        final String? reptileId = state.pathParameters['id'];
+        return ReptileDetailsPage(reptileId: reptileId ?? '0');
+      },
+    ),
+  ],
+);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,14 +30,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple)),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const MyHomePage(title: 'ReptiLog'),
-        '/reptiles': (context) => const ReptilesIndexPage(),
-      },
+      routerConfig: _router,
     );
   }
 }
@@ -43,7 +58,8 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             FilledButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/reptiles');
+                // Navigator.pushNamed(context, '/reptiles');
+                context.go('/reptiles');
               },
               child: const Text('View Reptiles'),
             ),

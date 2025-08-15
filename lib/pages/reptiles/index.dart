@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:reptilog_flutter/model/reptile.dart';
 import 'package:http/http.dart' as http;
 
@@ -35,7 +36,11 @@ class _ReptilesIndexPageState extends State<ReptilesIndexPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Reptiles')),
+      appBar: AppBar(
+        leading: BackButton(onPressed: () => context.go('/')),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: const Text('Reptiles'),
+      ),
       body: FutureBuilder(
         future: reptiles,
         initialData: const [],
