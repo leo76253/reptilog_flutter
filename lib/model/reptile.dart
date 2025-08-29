@@ -1,21 +1,21 @@
 class Reptile {
-  final int? id;
-  final String name;
-  final String species;
-  final String? clutch;
-  final DateTime? hatch_date;
-  final DateTime? acquisition_date;
-  final String? acquisition_source;
-  final String? notes;
+  int? id;
+  String name;
+  String species;
+  String? clutch;
+  DateTime? hatchDate;
+  DateTime? acquisitionDate;
+  String? acquisitionSource;
+  String? notes;
 
   Reptile({
     this.id,
     required this.name,
     required this.species,
     this.clutch,
-    this.hatch_date,
-    this.acquisition_date,
-    this.acquisition_source,
+    this.hatchDate,
+    this.acquisitionDate,
+    this.acquisitionSource,
     this.notes,
   });
 
@@ -25,9 +25,9 @@ class Reptile {
       name: json['name'],
       species: json['species'],
       clutch: json['clutch'],
-      hatch_date: json['hatch_date'] != null ? DateTime.parse(json['hatch_date']) : null,
-      acquisition_date: json['acquisition_date'] != null ? DateTime.parse(json['acquisition_date']) : null,
-      acquisition_source: json['acquisition_source'],
+      hatchDate: json['hatch_date'] != null ? DateTime.parse(json['hatch_date']) : null,
+      acquisitionDate: json['acquisition_date'] != null ? DateTime.parse(json['acquisition_date']) : null,
+      acquisitionSource: json['acquisition_source'],
       notes: json['notes'],
     );
   }
@@ -38,9 +38,9 @@ class Reptile {
       'name': name,
       'species': species,
       'clutch': clutch,
-      'hatch_date': hatch_date?.toIso8601String(),
-      'acquisition_date': acquisition_date?.toIso8601String(),
-      'acquisition_source': acquisition_source,
+      'hatch_date': hatchDate?.toIso8601String(),
+      'acquisition_date': acquisitionDate?.toIso8601String(),
+      'acquisition_source': acquisitionSource,
       'notes': notes,
     };
   }

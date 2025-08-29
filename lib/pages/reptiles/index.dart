@@ -6,7 +6,7 @@ import 'package:reptilog_flutter/model/reptile.dart';
 import 'package:http/http.dart' as http;
 
 class ReptilesIndexPage extends StatefulWidget {
-  const ReptilesIndexPage({Key? key}) : super(key: key);
+  const ReptilesIndexPage({super.key});
 
   @override
   _ReptilesIndexPageState createState() => _ReptilesIndexPageState();
@@ -55,7 +55,13 @@ class _ReptilesIndexPageState extends State<ReptilesIndexPage> {
               itemCount: reptiles.length,
               itemBuilder: (context, index) {
                 final reptile = reptiles[index];
-                return ListTile(title: Text(reptile.name), subtitle: Text(reptile.species));
+                return ListTile(
+                  title: Text(reptile.name),
+                  subtitle: Text(reptile.species),
+                  onTap: () {
+                    context.go('/reptiles/details/${reptile.id}');
+                  },
+                );
               },
             );
           }
